@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package course;
+
+// protoc-gen-go 版本大于1.4.0, proto文件需要加上go_package,否则无法生成
+option go_package = "./course";
+
+message BaseResp {
+  int32 status_code = 1;
+  string status_message = 2;
+  int64 service_time = 3;
+}
+
+message Course {
+  int32 id = 1;
+  string name = 2;
+  string avatar = 3;
+  int32 sid = 4;
+}
+
+message CreateCourseRequest {
+  string name = 1;
+  string avatar = 2;
+  int32 sid = 3;
+}
+
+message CreateCourseResponse {
+  BaseResp base_resp = 1;
+}
+
+message DeleteCourseRequest {
+  int32 id = 1;
+}
+
+message DeleteCourseResponse {
+  BaseResp base_resp = 1;
+}
+
+message UpdateCourseRequest {
+  int32 id = 1;
+  string name = 2;
+  string avatar = 3;
+  int32 sid = 4;
+}
+
+message UpdateCourseResponse {
+  BaseResp base_resp = 1;
+}
+
+
+
+message MGetCourseRequest {
+  // repeated 表示可以有多个
+  repeated int32 course_ids = 1;
+}
+
+message MGetCourseResponse {
+  repeated Course courses = 1;
+  BaseResp base_resp = 2;
+}
+
+message CheckCourseRequest{
+  string name = 1;
+}
+
+message CheckCourseResponse{
+  BaseResp base_resp = 1;
+}
+
+
+
+service CourseService {
+  rpc CreateCourse (CreateCourseRequest) returns (CreateCourseResponse) {}
+  rpc DeleteCourse (DeleteCourseRequest) returns (DeleteCourseResponse) {}
+  rpc UpdateCourse (UpdateCourseRequest) returns (UpdateCourseResponse) {}
+  rpc MGetCourse(MGetCourseRequest) returns (MGetCourseResponse) {}
+  rpc CheckCourse(CheckCourseRequest) returns (CheckCourseResponse) {}
+}

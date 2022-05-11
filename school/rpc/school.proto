@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package school;
+
+option go_package = "./school";
+
+message BaseResp {
+  int32 status_code = 1;
+  string status_message = 2;
+  int64 service_time = 3;
+}
+
+message School {
+  int32 id = 1;
+  string name = 2;
+}
+
+message MGetSchoolRequest {
+  repeated int32 school_ids = 1;
+}
+
+message MGetSchoolResponse {
+  repeated School schools = 1;
+  BaseResp base_resp = 2;
+}
+
+
+service SchoolService {
+  rpc MGetSchool(MGetSchoolRequest) returns (MGetSchoolResponse) {}
+}
