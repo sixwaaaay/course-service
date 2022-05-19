@@ -71,7 +71,7 @@ message CheckCourseResponse{
 }
 
 message QueryCourseBySidRequest{
-  int32 sid = 1; // <0 表示全部
+  optional int32 sid = 1; // <0 表示全部
   int32 limit = 2;
   int32 offset = 3;
 }
@@ -81,8 +81,6 @@ message QueryCourseBySidResponse{
   int32 total = 2;
   BaseResp base_resp = 3;
 }
-
-
 
 
 

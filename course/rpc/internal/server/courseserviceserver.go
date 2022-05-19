@@ -22,31 +22,37 @@ func NewCourseServiceServer(svcCtx *svc.ServiceContext) *CourseServiceServer {
 	}
 }
 
+//  创建课程
 func (s *CourseServiceServer) CreateCourse(ctx context.Context, in *course.CreateCourseRequest) (*course.CreateCourseResponse, error) {
 	l := logic.NewCreateCourseLogic(ctx, s.svcCtx)
 	return l.CreateCourse(in)
 }
 
+//  删除课程
 func (s *CourseServiceServer) DeleteCourse(ctx context.Context, in *course.DeleteCourseRequest) (*course.DeleteCourseResponse, error) {
 	l := logic.NewDeleteCourseLogic(ctx, s.svcCtx)
 	return l.DeleteCourse(in)
 }
 
+//  更新课程
 func (s *CourseServiceServer) UpdateCourse(ctx context.Context, in *course.UpdateCourseRequest) (*course.UpdateCourseResponse, error) {
 	l := logic.NewUpdateCourseLogic(ctx, s.svcCtx)
 	return l.UpdateCourse(in)
 }
 
+//  获取课程
 func (s *CourseServiceServer) MGetCourse(ctx context.Context, in *course.MGetCourseRequest) (*course.MGetCourseResponse, error) {
 	l := logic.NewMGetCourseLogic(ctx, s.svcCtx)
 	return l.MGetCourse(in)
 }
 
+//  检查课程名称是否重复
 func (s *CourseServiceServer) CheckCourse(ctx context.Context, in *course.CheckCourseRequest) (*course.CheckCourseResponse, error) {
 	l := logic.NewCheckCourseLogic(ctx, s.svcCtx)
 	return l.CheckCourse(in)
 }
 
+//  根据sid获取课程,如果sid <= 0,则获取全部
 func (s *CourseServiceServer) QueryCourseBySid(ctx context.Context, in *course.QueryCourseBySidRequest) (*course.QueryCourseBySidResponse, error) {
 	l := logic.NewQueryCourseBySidLogic(ctx, s.svcCtx)
 	return l.QueryCourseBySid(in)

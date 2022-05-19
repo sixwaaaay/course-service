@@ -27,6 +27,7 @@ func NewQueryCourseBySidLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *QueryCourseBySidLogic) QueryCourseBySid(in *course.QueryCourseBySidRequest) (*course.QueryCourseBySidResponse, error) {
+
 	courses, total, err := l.svcCtx.CourseModel.QueryCourseBySid(l.ctx, in.Sid, int(in.Limit), int(in.Offset))
 	if err != nil {
 		return &course.QueryCourseBySidResponse{

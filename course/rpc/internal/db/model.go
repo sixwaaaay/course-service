@@ -127,12 +127,12 @@ func (m *CourseModel) DeleteCourse(ctx context.Context, courseID int32) error {
 }
 
 // QueryCourseBySid query list of course info
-func (m *CourseModel) QueryCourseBySid(ctx context.Context, sid int32, limit, offset int) ([]*Course, int64, error) {
+func (m *CourseModel) QueryCourseBySid(ctx context.Context, sid *int32, limit, offset int) ([]*Course, int64, error) {
 	var total int64
 	var res []*Course
 	var conn *gorm.DB
-	if sid > 0 {
-		conn = m.db.WithContext(ctx).Model(&Course{}).Where("sid = ?", sid)
+	if sid != nil {
+		conn = m.db.WithContext(ctx).Model(&Course{}).Where("sid = ?", *sid)
 	} else {
 		conn = m.db.WithContext(ctx).Model(&Course{})
 	}

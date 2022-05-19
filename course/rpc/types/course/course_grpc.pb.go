@@ -18,11 +18,17 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CourseServiceClient interface {
+	// 创建课程
 	CreateCourse(ctx context.Context, in *CreateCourseRequest, opts ...grpc.CallOption) (*CreateCourseResponse, error)
+	// 删除课程
 	DeleteCourse(ctx context.Context, in *DeleteCourseRequest, opts ...grpc.CallOption) (*DeleteCourseResponse, error)
+	// 更新课程
 	UpdateCourse(ctx context.Context, in *UpdateCourseRequest, opts ...grpc.CallOption) (*UpdateCourseResponse, error)
+	// 获取课程
 	MGetCourse(ctx context.Context, in *MGetCourseRequest, opts ...grpc.CallOption) (*MGetCourseResponse, error)
+	// 检查课程名称是否重复
 	CheckCourse(ctx context.Context, in *CheckCourseRequest, opts ...grpc.CallOption) (*CheckCourseResponse, error)
+	// 根据sid获取课程,如果sid <= 0,则获取全部
 	QueryCourseBySid(ctx context.Context, in *QueryCourseBySidRequest, opts ...grpc.CallOption) (*QueryCourseBySidResponse, error)
 }
 
@@ -92,11 +98,17 @@ func (c *courseServiceClient) QueryCourseBySid(ctx context.Context, in *QueryCou
 // All implementations must embed UnimplementedCourseServiceServer
 // for forward compatibility
 type CourseServiceServer interface {
+	// 创建课程
 	CreateCourse(context.Context, *CreateCourseRequest) (*CreateCourseResponse, error)
+	// 删除课程
 	DeleteCourse(context.Context, *DeleteCourseRequest) (*DeleteCourseResponse, error)
+	// 更新课程
 	UpdateCourse(context.Context, *UpdateCourseRequest) (*UpdateCourseResponse, error)
+	// 获取课程
 	MGetCourse(context.Context, *MGetCourseRequest) (*MGetCourseResponse, error)
+	// 检查课程名称是否重复
 	CheckCourse(context.Context, *CheckCourseRequest) (*CheckCourseResponse, error)
+	// 根据sid获取课程,如果sid <= 0,则获取全部
 	QueryCourseBySid(context.Context, *QueryCourseBySidRequest) (*QueryCourseBySidResponse, error)
 	mustEmbedUnimplementedCourseServiceServer()
 }

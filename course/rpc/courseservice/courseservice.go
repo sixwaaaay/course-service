@@ -29,11 +29,17 @@ type (
 	UpdateCourseResponse     = course.UpdateCourseResponse
 
 	CourseService interface {
+		//  创建课程
 		CreateCourse(ctx context.Context, in *CreateCourseRequest, opts ...grpc.CallOption) (*CreateCourseResponse, error)
+		//  删除课程
 		DeleteCourse(ctx context.Context, in *DeleteCourseRequest, opts ...grpc.CallOption) (*DeleteCourseResponse, error)
+		//  更新课程
 		UpdateCourse(ctx context.Context, in *UpdateCourseRequest, opts ...grpc.CallOption) (*UpdateCourseResponse, error)
+		//  获取课程
 		MGetCourse(ctx context.Context, in *MGetCourseRequest, opts ...grpc.CallOption) (*MGetCourseResponse, error)
+		//  检查课程名称是否重复
 		CheckCourse(ctx context.Context, in *CheckCourseRequest, opts ...grpc.CallOption) (*CheckCourseResponse, error)
+		//  根据sid获取课程,如果sid <= 0,则获取全部
 		QueryCourseBySid(ctx context.Context, in *QueryCourseBySidRequest, opts ...grpc.CallOption) (*QueryCourseBySidResponse, error)
 	}
 
@@ -48,31 +54,37 @@ func NewCourseService(cli zrpc.Client) CourseService {
 	}
 }
 
+//  创建课程
 func (m *defaultCourseService) CreateCourse(ctx context.Context, in *CreateCourseRequest, opts ...grpc.CallOption) (*CreateCourseResponse, error) {
 	client := course.NewCourseServiceClient(m.cli.Conn())
 	return client.CreateCourse(ctx, in, opts...)
 }
 
+//  删除课程
 func (m *defaultCourseService) DeleteCourse(ctx context.Context, in *DeleteCourseRequest, opts ...grpc.CallOption) (*DeleteCourseResponse, error) {
 	client := course.NewCourseServiceClient(m.cli.Conn())
 	return client.DeleteCourse(ctx, in, opts...)
 }
 
+//  更新课程
 func (m *defaultCourseService) UpdateCourse(ctx context.Context, in *UpdateCourseRequest, opts ...grpc.CallOption) (*UpdateCourseResponse, error) {
 	client := course.NewCourseServiceClient(m.cli.Conn())
 	return client.UpdateCourse(ctx, in, opts...)
 }
 
+//  获取课程
 func (m *defaultCourseService) MGetCourse(ctx context.Context, in *MGetCourseRequest, opts ...grpc.CallOption) (*MGetCourseResponse, error) {
 	client := course.NewCourseServiceClient(m.cli.Conn())
 	return client.MGetCourse(ctx, in, opts...)
 }
 
+//  检查课程名称是否重复
 func (m *defaultCourseService) CheckCourse(ctx context.Context, in *CheckCourseRequest, opts ...grpc.CallOption) (*CheckCourseResponse, error) {
 	client := course.NewCourseServiceClient(m.cli.Conn())
 	return client.CheckCourse(ctx, in, opts...)
 }
 
+//  根据sid获取课程,如果sid <= 0,则获取全部
 func (m *defaultCourseService) QueryCourseBySid(ctx context.Context, in *QueryCourseBySidRequest, opts ...grpc.CallOption) (*QueryCourseBySidResponse, error) {
 	client := course.NewCourseServiceClient(m.cli.Conn())
 	return client.QueryCourseBySid(ctx, in, opts...)
