@@ -15,13 +15,15 @@ message Course {
   int32 id = 1;
   string name = 2;
   string avatar = 3;
-  int32 sid = 4;
+  int32 hours = 4;
+  int32 sid = 5;
 }
 
 message CreateCourseRequest {
   string name = 1;
   string avatar = 2;
-  int32 sid = 3;
+  int32 hours = 3;
+  int32 sid = 4;
 }
 
 message CreateCourseResponse {
@@ -40,7 +42,8 @@ message UpdateCourseRequest {
   int32 id = 1;
   string name = 2;
   string avatar = 3;
-  int32 sid = 4;
+  int32 hours = 4;
+  int32 sid = 5;
 }
 
 message UpdateCourseResponse {
@@ -67,12 +70,33 @@ message CheckCourseResponse{
   BaseResp base_resp = 1;
 }
 
+message QueryCourseBySidRequest{
+  int32 sid = 1; // <0 表示全部
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message QueryCourseBySidResponse{
+  repeated Course courses = 1;
+  int32 total = 2;
+  BaseResp base_resp = 3;
+}
+
+
+
 
 
 service CourseService {
+  // 创建课程
   rpc CreateCourse (CreateCourseRequest) returns (CreateCourseResponse) {}
+  // 删除课程
   rpc DeleteCourse (DeleteCourseRequest) returns (DeleteCourseResponse) {}
+  // 更新课程
   rpc UpdateCourse (UpdateCourseRequest) returns (UpdateCourseResponse) {}
+  // 获取课程
   rpc MGetCourse(MGetCourseRequest) returns (MGetCourseResponse) {}
+  // 检查课程名称是否重复
   rpc CheckCourse(CheckCourseRequest) returns (CheckCourseResponse) {}
+  // 根据sid获取课程,如果sid <= 0,则获取全部
+  rpc QueryCourseBySid(QueryCourseBySidRequest) returns (QueryCourseBySidResponse) {}
 }

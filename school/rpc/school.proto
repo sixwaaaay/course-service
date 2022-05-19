@@ -24,7 +24,17 @@ message MGetSchoolResponse {
   BaseResp base_resp = 2;
 }
 
+message QueryIdByNameRequest {
+  string name = 1;
+}
+message QueryIdByNameResponse {
+  int32 school_id = 1;
+  BaseResp base_resp = 2;
+}
 
 service SchoolService {
+  // 获取学院信息
   rpc MGetSchool(MGetSchoolRequest) returns (MGetSchoolResponse) {}
+  // 根据学院名称查询学院id
+  rpc QueryIdByName(QueryIdByNameRequest) returns (QueryIdByNameResponse) {}
 }
