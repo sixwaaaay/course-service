@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/minio/minio-go/v7 v7.0.26
 	github.com/zeromicro/go-zero v1.3.3
-	google.golang.org/grpc v1.46.0
+	google.golang.org/grpc v1.46.2
 	google.golang.org/protobuf v1.28.0
 	gorm.io/driver/mysql v1.3.3
 	gorm.io/gorm v1.23.5
