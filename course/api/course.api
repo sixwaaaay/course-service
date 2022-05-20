@@ -1,0 +1,77 @@
+type (
+	Course {
+		Id     int32  `json:"id"`
+		Name   string `json:"name"`
+		Avatar string `json:"avatar"`
+		Hours  int32  `json:"hours"`
+		Sid    int32  `json:"sid"`
+		SName  string `json:"sname"`
+	}
+	BaseResponse {
+		Status  int32       `json:"status"`
+		Message string      `json:"message"`
+		Data    interface{} `json:"data"`
+	}
+	CourseReq {
+		Id int32 `path:"id"`
+	}
+	MCourseReq {
+		Sid  int32 `json:"sid"`
+		Page int32 `json:"page"`
+		Size int32 `json:"size"`
+	}
+	MCourseRes {
+		Courses []*Course `json:"courses"`
+		Total   int32    `json:"total"`
+	}
+	NameCheckReq {
+		Name string `json:"name"`
+	}
+	CreateCourseReq {
+		Name   string `json:"name"`
+		Avatar string `json:"avatar"`
+		Hours  int32  `json:"hours"`
+		Sid    int32  `json:"sid"`
+	}
+	QuerySchoolIdReq {
+		Name string `json:"name"`
+	}
+
+	UpdateCourseReq {
+		Id     int32  `path:"id"`
+		Name   string `json:"name"`
+		Avatar string `json:"avatar,omitempty"`
+		Hours  int32  `json:"hours"`
+		Sid    int32  `json:"sid"`
+	}
+	DeleteCourseReq {
+		Id int32 `path:"id"`
+	}
+	DownloadRequest {
+		File string `path:"file"`
+	}
+	UploadResponse {
+		Name string `json:"name"`
+		Size int64  `json:"size"`
+	}
+)
+service course {
+	@handler getCourse
+	get /api/courses/:id (CourseReq) returns (BaseResponse)
+	@handler getMCourse
+	post /api/courses/school (MCourseReq) returns (BaseResponse)
+	@handler updateCourse
+	put /api/courses/:id (UpdateCourseReq) returns (BaseResponse)
+	@handler createCourse
+	post /api/courses (CreateCourseReq) returns (BaseResponse)
+	@handler deleteCourse
+	delete /api/courses/:id (DeleteCourseReq) returns (BaseResponse)
+	@handler nameCheck
+	post /api/courses/nameCheck (NameCheckReq) returns (BaseResponse)
+	@handler DownloadHandler
+	get /oss/:file(DownloadRequest)
+	@handler UploadHandler
+	post /oss/upload returns (BaseResponse)
+	@handler QuerySchoolId
+	post /api/courses/schoolId (QuerySchoolIdReq) returns (BaseResponse)
+}
