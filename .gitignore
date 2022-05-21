@@ -6,4 +6,6 @@
 *.iml
 out
 gen
-
+school/rpc/etc/school.yaml
+course/rpc/etc/course.yaml
+course/api/etc/course.yaml
