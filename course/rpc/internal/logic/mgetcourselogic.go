@@ -29,7 +29,7 @@ func (l *MGetCourseLogic) MGetCourse(in *course.MGetCourseRequest) (*course.MGet
 	if err != nil {
 		return &course.MGetCourseResponse{
 			Courses:  nil,
-			BaseResp: pack.BuildResp(constants.DatabaseErrorCode, err.Error()),
+			BaseResp: pack.BuildResp(constants.DbErrCode, err.Error()),
 		}, err
 	}
 	courses := make([]*course.Course, len(mCourses))

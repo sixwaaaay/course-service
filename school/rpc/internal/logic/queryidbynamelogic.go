@@ -30,7 +30,7 @@ func (l *QueryIdByNameLogic) QueryIdByName(in *school.QueryIdByNameRequest) (*sc
 	if err != nil {
 		return &school.QueryIdByNameResponse{
 			SchoolId: 0,
-			BaseResp: pack.BuildResp(constants.DatabaseErrorCode, "database error"),
+			BaseResp: pack.BuildResp(constants.DbErrCode, "database error"),
 		}, nil
 	}
 	return &school.QueryIdByNameResponse{

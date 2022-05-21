@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"course/constants"
+	"course/course/api/internal/errorx"
 	"course/course/api/internal/pack"
 	"course/course/api/internal/svc"
 	"course/course/api/internal/types"
@@ -30,7 +31,7 @@ func (l *GetCourseLogic) GetCourse(req *types.CourseReq) (resp *types.BaseRespon
 		CourseIds: []int32{req.Id},
 	})
 	if err != nil {
-		return pack.BuildResp(constants.RPCInternalError, "fail to solve"), err
+		return nil, errorx.NewCodeError(constants.RpcErrCode, "fail")
 	}
 	if mGetCourse.BaseResp.StatusCode != constants.SuccessCode {
 		return pack.BuildResp(mGetCourse.BaseResp.StatusCode, mGetCourse.BaseResp.StatusMessage), nil
@@ -40,10 +41,10 @@ func (l *GetCourseLogic) GetCourse(req *types.CourseReq) (resp *types.BaseRespon
 		SchoolIds: []int32{res.Sid},
 	})
 	if err != nil {
-		return pack.BuildResp(constants.RPCInternalError, "fail to solve"), err
+		return nil, errorx.NewCodeError(constants.RpcErrCode, "fail")
 	}
 	if mGetSchool.BaseResp.StatusCode != constants.SuccessCode {
-		return pack.BuildResp(mGetSchool.BaseResp.StatusCode, mGetSchool.BaseResp.StatusMessage), nil
+		return nil, errorx.NewCodeError(mGetSchool.BaseResp.StatusCode, mGetSchool.BaseResp.StatusMessage)
 	}
 	res.SName = mGetSchool.Schools[0].Name
 

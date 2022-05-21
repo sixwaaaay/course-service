@@ -33,7 +33,7 @@ func (l *QueryCourseBySidLogic) QueryCourseBySid(in *course.QueryCourseBySidRequ
 		return &course.QueryCourseBySidResponse{
 			Courses:  nil,
 			Total:    0,
-			BaseResp: pack.BuildResp(constants.DatabaseErrorCode, err.Error()),
+			BaseResp: pack.BuildResp(constants.DbErrCode, err.Error()),
 		}, err
 	}
 	// covert to response type

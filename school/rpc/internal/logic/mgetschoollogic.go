@@ -29,7 +29,7 @@ func (l *MGetSchoolLogic) MGetSchool(in *school.MGetSchoolRequest) (*school.MGet
 	if err != nil {
 		return &school.MGetSchoolResponse{
 			Schools:  nil,
-			BaseResp: pack.BuildResp(constants.DatabaseErrorCode, err.Error()),
+			BaseResp: pack.BuildResp(constants.DbErrCode, err.Error()),
 		}, err
 	}
 

@@ -27,12 +27,12 @@ func (l *CheckCourseLogic) CheckCourse(in *course.CheckCourseRequest) (*course.C
 	duplicated, err := l.svcCtx.CourseModel.QueryDuplicateName(l.ctx, in.Name)
 	if err != nil {
 		return &course.CheckCourseResponse{
-			BaseResp: pack.BuildResp(constants.DatabaseErrorCode, err.Error()),
+			BaseResp: pack.BuildResp(constants.DbErrCode, err.Error()),
 		}, nil
 	}
 	if duplicated {
 		return &course.CheckCourseResponse{
-			BaseResp: pack.BuildResp(constants.NameDuplicateCode, "duplicated name")}, nil
+			BaseResp: pack.BuildResp(constants.NameDuplicate, "duplicated name")}, nil
 	} else {
 		return &course.CheckCourseResponse{
 			BaseResp: pack.BuildResp(constants.SuccessCode, "no duplicated name")}, nil

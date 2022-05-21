@@ -28,14 +28,14 @@ func (l *DeleteCourseLogic) DeleteCourse(in *course.DeleteCourseRequest) (*cours
 
 	if in.Id <= 0 {
 		return &course.DeleteCourseResponse{
-			BaseResp: pack.BuildResp(constants.InvalidParamsCode, "invalid params"),
+			BaseResp: pack.BuildResp(constants.ParamsErrCode, "invalid params"),
 		}, nil
 	}
 
 	err := l.svcCtx.CourseModel.DeleteCourse(l.ctx, in.Id)
 	if err != nil {
 		return &course.DeleteCourseResponse{
-			BaseResp: pack.BuildResp(constants.DatabaseErrorCode, err.Error()),
+			BaseResp: pack.BuildResp(constants.DbErrCode, err.Error()),
 		}, nil
 	}
 

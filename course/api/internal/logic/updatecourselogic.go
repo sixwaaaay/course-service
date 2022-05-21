@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"course/constants"
-	"course/course/api/internal/pack"
+	"course/course/api/internal/errorx"
 	"course/course/api/internal/svc"
 	"course/course/api/internal/types"
 	"course/course/rpc/types/course"
@@ -36,10 +36,10 @@ func (l *UpdateCourseLogic) UpdateCourse(req *types.UpdateCourseReq) (resp *type
 
 	updateCourse, err := l.svcCtx.CourseRpc.UpdateCourse(l.ctx, reqReq)
 	if err != nil {
-		return pack.BuildResp(constants.RPCInternalError, "fail"), nil
+		return nil, errorx.NewCodeError(constants.RpcErrCode, "fail")
 	}
 	if updateCourse.BaseResp.StatusCode != 0 {
-		return pack.BuildResp(updateCourse.BaseResp.StatusCode, updateCourse.BaseResp.StatusMessage), nil
+		return nil, errorx.NewCodeError(updateCourse.BaseResp.StatusCode, updateCourse.BaseResp.StatusMessage)
 	}
 	resp = &types.BaseResponse{
 		Status:  updateCourse.BaseResp.StatusCode,

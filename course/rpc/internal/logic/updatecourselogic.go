@@ -47,7 +47,7 @@ func (l *UpdateCourseLogic) UpdateCourse(in *course.UpdateCourseRequest) (*cours
 	err := l.svcCtx.CourseModel.UpdateCourse(l.ctx, in.Id, name, avatar, sid, hours)
 	if err != nil {
 		return &course.UpdateCourseResponse{
-			BaseResp: pack.BuildResp(constants.DatabaseErrorCode, err.Error()),
+			BaseResp: pack.BuildResp(constants.DbErrCode, err.Error()),
 		}, err
 	}
 	return &course.UpdateCourseResponse{

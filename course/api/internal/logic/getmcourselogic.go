@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"course/constants"
+	"course/course/api/internal/errorx"
 	"course/course/api/internal/pack"
 	"course/course/api/internal/svc"
 	"course/course/api/internal/types"
@@ -34,21 +35,20 @@ func (l *GetMCourseLogic) GetMCourse(req *types.MCourseReq) (resp *types.BaseRes
 		Offset: (req.Page - 1) * req.Size,
 	})
 	if err != nil {
-		return pack.BuildResp(constants.RPCInternalError, "fail to solve"), err
+		return nil, errorx.NewCodeError(constants.RpcErrCode, "fail")
 	}
 	if queryBySidResp.BaseResp.StatusCode != constants.SuccessCode {
-		return pack.BuildResp(queryBySidResp.BaseResp.StatusCode, queryBySidResp.BaseResp.StatusMessage), nil
+		return nil, errorx.NewCodeError(queryBySidResp.BaseResp.StatusCode, queryBySidResp.BaseResp.StatusMessage)
 	}
 	schoolIds := pack.SchoolIds(queryBySidResp.Courses)
 	schools, err := l.svcCtx.SchoolRpc.MGetSchool(l.ctx, &school.MGetSchoolRequest{SchoolIds: schoolIds})
 	list := pack.ToCourseList(queryBySidResp.Courses)
 
 	if err != nil {
-		return pack.BuildResp(constants.RPCInternalError, "fail to solve"), err
+		return nil, errorx.NewCodeError(constants.RpcErrCode, "fail")
 	}
 	if schools.BaseResp.StatusCode != 0 {
-		l.Errorf("get school error: %s", schools.BaseResp.StatusMessage)
-		return pack.BuildResp(schools.BaseResp.StatusCode, schools.BaseResp.StatusMessage), nil
+		return nil, errorx.NewCodeError(schools.BaseResp.StatusCode, schools.BaseResp.StatusMessage)
 	}
 	schoolMap := pack.SchoolMap(schools.Schools)
 	for i := 0; i < len(list); i++ {

@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"course/constants"
-	"course/course/api/internal/pack"
+	"course/course/api/internal/errorx"
 	"course/course/rpc/types/course"
 
 	"course/course/api/internal/svc"
@@ -34,12 +34,13 @@ func (l *CreateCourseLogic) CreateCourse(req *types.CreateCourseReq) (resp *type
 		Sid:    req.Sid,
 	})
 	if err != nil {
-		return pack.BuildResp(constants.RPCInternalError, "fail"), nil
+		return nil, errorx.NewCodeError(constants.RpcErrCode, "fail")
 	}
 	if c.BaseResp.StatusCode != constants.SuccessCode {
+		l.Logger.Errorf("create course failed, code: %d, msg: %s", c.BaseResp.StatusCode, c.BaseResp.StatusMessage)
 		return &types.BaseResponse{
 			Status:  c.BaseResp.StatusCode,
-			Message: c.BaseResp.StatusMessage,
+			Message: "fail", // avoid expose internal error message like table name or column name
 			Data:    nil,
 		}, nil
 	}

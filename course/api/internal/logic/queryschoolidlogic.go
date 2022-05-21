@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"course/constants"
-	"course/course/api/internal/pack"
+	"course/course/api/internal/errorx"
 	"course/school/rpc/types/school"
 
 	"course/course/api/internal/svc"
@@ -30,10 +30,10 @@ func (l *QuerySchoolIdLogic) QuerySchoolId(req *types.QuerySchoolIdReq) (resp *t
 	rpcRes, err := l.svcCtx.SchoolRpc.QueryIdByName(l.ctx, &school.QueryIdByNameRequest{Name: req.Name})
 	resp = &types.BaseResponse{}
 	if err != nil {
-		return pack.BuildResp(constants.RPCInternalError, "fail to solve"), nil
+		return nil, errorx.NewCodeError(constants.RpcErrCode, "fail")
 	}
 	if rpcRes.BaseResp.StatusCode != 0 {
-		return pack.BuildResp(rpcRes.BaseResp.StatusCode, rpcRes.BaseResp.StatusMessage), nil
+		return nil, errorx.NewCodeError(rpcRes.BaseResp.StatusCode, rpcRes.BaseResp.StatusMessage)
 	}
 	resp.Status = constants.SuccessCode
 	resp.Message = "success"

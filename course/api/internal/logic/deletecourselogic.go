@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"course/constants"
-	"course/course/api/internal/pack"
+	"course/course/api/internal/errorx"
 	"course/course/rpc/types/course"
 
 	"course/course/api/internal/svc"
@@ -31,10 +31,10 @@ func (l *DeleteCourseLogic) DeleteCourse(req *types.DeleteCourseReq) (resp *type
 		Id: req.Id,
 	})
 	if err != nil {
-		return pack.BuildResp(constants.RPCInternalError, "fail to solve"), err
+		return nil, errorx.NewCodeError(constants.RpcErrCode, "fail")
 	}
 	if delResp.BaseResp.StatusCode != 0 {
-		return pack.BuildResp(delResp.BaseResp.StatusCode, delResp.BaseResp.StatusMessage), nil
+		return nil, errorx.NewCodeError(delResp.BaseResp.StatusCode, delResp.BaseResp.StatusMessage)
 	}
 	return &types.BaseResponse{
 		Status:  constants.SuccessCode,

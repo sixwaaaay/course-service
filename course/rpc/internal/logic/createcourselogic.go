@@ -37,7 +37,7 @@ func (l *CreateCourseLogic) CreateCourse(in *course.CreateCourseRequest) (*cours
 	)
 	if err != nil {
 		return &course.CreateCourseResponse{
-			BaseResp: pack.BuildResp(constants.DatabaseErrorCode, err.Error()),
+			BaseResp: pack.BuildResp(constants.DbErrCode, err.Error()),
 		}, nil
 	}
 	return &course.CreateCourseResponse{
