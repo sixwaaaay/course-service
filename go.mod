@@ -3,7 +3,7 @@ module course
 go 1.18
 
 require (
-	github.com/minio/minio-go/v7 v7.0.26
+	github.com/minio/minio-go/v7 v7.0.27
 	github.com/zeromicro/go-zero v1.3.3
 	google.golang.org/grpc v1.46.2
 	google.golang.org/protobuf v1.28.0
