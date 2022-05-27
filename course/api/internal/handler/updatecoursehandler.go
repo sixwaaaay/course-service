@@ -16,9 +16,7 @@ func updateCourseHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-
-		l := logic.NewUpdateCourseLogic(r.Context(), svcCtx)
-		resp, err := l.UpdateCourse(&req)
+		resp, err := logic.NewUpdateCourseLogic(r.Context(), svcCtx)(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

@@ -16,9 +16,7 @@ func nameCheckHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-
-		l := logic.NewNameCheckLogic(r.Context(), svcCtx)
-		resp, err := l.NameCheck(&req)
+		resp, err := logic.NewNameCheckLogic(r.Context(), svcCtx)(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

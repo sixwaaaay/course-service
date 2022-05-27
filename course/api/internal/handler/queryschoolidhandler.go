@@ -16,9 +16,7 @@ func QuerySchoolIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-
-		l := logic.NewQuerySchoolIdLogic(r.Context(), svcCtx)
-		resp, err := l.QuerySchoolId(&req)
+		resp, err := logic.NewQuerySchoolIdLogic(r.Context(), svcCtx)(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

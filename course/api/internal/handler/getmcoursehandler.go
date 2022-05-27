@@ -17,8 +17,7 @@ func getMCourseHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := logic.NewGetMCourseLogic(r.Context(), svcCtx)
-		resp, err := l.GetMCourse(&req)
+		resp, err := logic.NewMultiGetLogic(r.Context(), svcCtx)(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
