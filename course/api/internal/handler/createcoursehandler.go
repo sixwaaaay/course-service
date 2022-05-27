@@ -11,14 +11,15 @@ import (
 
 func createCourseHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+
 		var req types.CreateCourseReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
 		}
 
-		l := logic.NewCreateCourseLogic(r.Context(), svcCtx)
-		resp, err := l.CreateCourse(&req)
+		solver := logic.NewCreateLogic(r.Context(), svcCtx)
+		resp, err := solver(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
