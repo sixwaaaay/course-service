@@ -16,9 +16,7 @@ func deleteCourseHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-
-		l := logic.NewDeleteCourseLogic(r.Context(), svcCtx)
-		resp, err := l.DeleteCourse(&req)
+		resp, err := logic.NewDeleteLogic(r.Context(), svcCtx)(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
