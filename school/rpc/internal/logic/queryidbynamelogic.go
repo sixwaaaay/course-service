@@ -26,7 +26,7 @@ func NewQueryIdByNameLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Que
 }
 
 func (l *QueryIdByNameLogic) QueryIdByName(in *school.QueryIdByNameRequest) (*school.QueryIdByNameResponse, error) {
-	id, err := l.svcCtx.SchoolModel.GetIdByName(l.ctx, in.Name)
+	id, err := l.svcCtx.SchoolModel.FindOneByName(l.ctx, in.Name)
 	if err != nil {
 		return &school.QueryIdByNameResponse{
 			SchoolId: 0,
@@ -34,7 +34,7 @@ func (l *QueryIdByNameLogic) QueryIdByName(in *school.QueryIdByNameRequest) (*sc
 		}, nil
 	}
 	return &school.QueryIdByNameResponse{
-		SchoolId: id,
+		SchoolId: int32(id.Id),
 		BaseResp: pack.BuildResp(constants.SuccessCode, "success"),
 	}, nil
 }

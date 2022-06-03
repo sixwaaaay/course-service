@@ -37,7 +37,7 @@ func (l *MGetSchoolLogic) MGetSchool(in *school.MGetSchoolRequest) (*school.MGet
 	schools := make([]*school.School, len(getSchool))
 	for i, v := range getSchool {
 		schools[i] = &school.School{
-			Id:   v.ID,
+			Id:   int32(v.Id),
 			Name: v.Name,
 		}
 	}
